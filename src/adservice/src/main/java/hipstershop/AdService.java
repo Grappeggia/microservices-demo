@@ -16,7 +16,24 @@
 
 package hipstershop;
 
-impor
+import hipstershop.Demo.Ad;
+import hipstershop.Demo.AdRequest;
+import hipstershop.Demo.AdResponse;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.StatusRuntimeException;
+import io.grpc.health.v1.HealthCheckResponse.ServingStatus;
+import io.grpc.services.*;
+import io.grpc.stub.StreamObserver;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class AdService {
 
