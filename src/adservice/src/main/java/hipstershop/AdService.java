@@ -28,7 +28,7 @@ public final class AdService {
   private HealthStatusManager h;
   private static final AdService a = new AdService();
 
-  private void st() throws IOException {
+  private void str() throws IOException {
     int p = Integer.parseInt(System.getenv().getOrDefault("PORT", "9555"));
     h = new HealthStatusManager();
     s =
@@ -43,13 +43,13 @@ public final class AdService {
             new Thread(
                 () -> {
                   System.err.println("*** shutting down gRPC ads server since JVM is shutting down");
-                  AdService.this.sp();
+                  AdService.this.sht();
                   System.err.println("*** server shut down");
                 }));
     h.setStatus("", ServingStatus.SERVING);
   }
 
-  private void sp() {
+  private void sht() {
     if (s != null) {
       h.clearStatus("");
       s.shutdown();
@@ -59,20 +59,20 @@ public final class AdService {
   private static class AImpl extends hipstershop.AdServiceGrpc.AdServiceImplBase {
     @Override
     public void getAds(AdRequest r, StreamObserver<AdResponse> o) {
-      AdService a = AdService.i();
+      AdService a = AdService.ins();
       try {
         List<Ad> ads = new ArrayList<>();
         l.info("received ad request (context_words=" + r.getContextKeysList() + ")");
         if (r.getContextKeysCount() > 0) {
           for (int i = 0; i < r.getContextKeysCount(); i++) {
-            Collection<Ad> c = a.gAC(r.getContextKeys(i));
+            Collection<Ad> c = a.getCon(r.getContextKeys(i));
             ads.addAll(c);
           }
         } else {
-          ads = a.gRA();
+          ads = a.getRan();
         }
         if (ads.isEmpty()) {
-          ads = a.gRA();
+          ads = a.getRan();
         }
         AdResponse rp = AdResponse.newBuilder().addAllAds(ads).build();
         o.onNext(rp);
@@ -84,15 +84,15 @@ public final class AdService {
     }
   }
 
-  private static final ImmutableListMultimap<String, Ad> am = cAM();
+  private static final ImmutableListMultimap<String, Ad> am = creMap();
 
-  private Collection<Ad> gAC(String c) {
+  private Collection<Ad> getCon(String c) {
     return am.get(c);
   }
 
   private static final Random r = new Random();
 
-  private List<Ad> gRA() {
+  private List<Ad> getRan() {
     List<Ad> ads = new ArrayList<>(M);
     Collection<Ad> allAds = am.values();
     for (int i = 0; i < M; i++) {
@@ -101,17 +101,17 @@ public final class AdService {
     return ads;
   }
 
-  private static AdService i() {
+  private static AdService ins() {
     return a;
   }
 
-  private void bUS() throws InterruptedException {
+  private void blkUnt() throws InterruptedException {
     if (s != null) {
       s.awaitTermination();
     }
   }
 
-  private static ImmutableListMultimap<String, Ad> cAM() {
+  private static ImmutableListMultimap<String, Ad> creMap() {
     Ad h =
         Ad.newBuilder()
             .setRedirectUrl("/product/2ZYFJ3GM2N")
@@ -157,7 +157,7 @@ public final class AdService {
         .build();
   }
 
-    private static void iS() {
+    private static void iniSta() {
     if (System.getenv("DISABLE_STATS") != null) {
       l.info("Stats disabled.");
       return;
@@ -167,7 +167,7 @@ public final class AdService {
     // TODO(arbrown) Implement OpenTelemetry stats
   }
 
-  private static void iT() {
+  private static void iniTra() {
     if (System.getenv("DISABLE_TRACING") != null) {
       l.info("Tracing disabled.");
       return;
@@ -181,13 +181,13 @@ public final class AdService {
   public static void main(String[] args) throws IOException, InterruptedException {
     new Thread(
             () -> {
-              iS();
-              iT();
+              iniSta();
+              iniTra();
             })
         .start();
     l.info("AdService starting.");
-    final AdService a = AdService.i();
-    a.st();
-    a.bUS();
+    final AdService a = AdService.ins();
+    a.str();
+    a.blkUnt();
   }
 }
