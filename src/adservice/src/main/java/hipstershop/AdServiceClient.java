@@ -29,7 +29,7 @@ public class AdServiceClient {
             .build());
   }
 
-  private AdServiceCl(ManagedChannel channel) {
+  private AdServiceClien(ManagedChannel channel) {
     this.channel = channel;
     blockingStub = hipstershop.AdServiceGrpc.newBlockingStub(channel);
   }
