@@ -169,12 +169,14 @@ public final class AdService {
     Ad f = Ad.newBuilder().setRedirectUrl("/product/6E92ZMYYFZ").setText("Mug for sale. Buy two, get third one for free").build();
     Ad g = Ad.newBuilder().setRedirectUrl("/product/L9ECAV7KIM").setText("Loafers for sale. Buy one, get second one for free").build();
     ImmutableListMultimap.Builder<String, Ad> builder = ImmutableListMultimap.builder();
-    String s1 = "clothing";
-    String s2 = "accessories";
-    String s3 = "footwear";
-    String s4 = "hair";
-    String s5 = "decor";
-    String s6 = "kitchen";
+ImmutableMap<String, Ad> categoryMap = ImmutableMap.of(
+            "clothing", b,
+            "accessories", e,
+            "footwear", g,
+            "hair", a,
+            "decor", c,
+            "kitchen", d,
+            "kitchen", f);
     builder.putAll(s1,b);
     builder.putAll(s2,e);
     builder.putAll(s3,g);
